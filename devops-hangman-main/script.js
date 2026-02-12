@@ -245,7 +245,7 @@ function updateWrongLetters() {
 }
 
 function updateLives() {
-    const livesLeft = gameState.maxWrong - gameState.wrongGuesses + 1;
+    const livesLeft = gameState.maxWrong - gameState.wrongGuesses;  // ✅ FIXED! Removed +1
     document.getElementById('livesLeft').textContent = livesLeft;
 }
 
