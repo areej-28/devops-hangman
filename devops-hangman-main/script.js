@@ -17,6 +17,18 @@ let gameState = {
     usedWords: []
 };
 
+function validatePlayerName(name) {
+    // Must be 2-15 characters
+    if (name.length < 2 || name.length > 15) {
+        return "Player name must be 2-15 characters";
+    }
+    // Must contain only letters, numbers, and spaces
+    if (!/^[a-zA-Z0-9 ]+$/.test(name)) {
+        return "Player name can only contain letters, numbers, and spaces";
+    }
+    return null; // Valid
+}
+
 let wordBank = [];
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -136,8 +148,22 @@ function startGame() {
     const p1Name = document.getElementById('player1Name').value.trim();
     const p2Name = document.getElementById('player2Name').value.trim();
     
-    gameState.player1.name = p1Name || 'Player 1';
-    gameState.player2.name = p2Name || 'Player 2';
+    // Validate player 1 name
+    const p1Error = validatePlayerName(p1Name);
+    if (p1Error) {
+        alert(p1Error + " (Player 1)");
+        return;
+    }
+    
+    // Validate player 2 name
+    const p2Error = validatePlayerName(p2Name);
+    if (p2Error) {
+        alert(p2Error + " (Player 2)");
+        return;
+    }
+    
+    gameState.player1.name = p1Name;
+    gameState.player2.name = p2Name;
     
     document.getElementById('player1Display').textContent = gameState.player1.name;
     document.getElementById('player2Display').textContent = gameState.player2.name;
